@@ -1,0 +1,45 @@
+create table lecture(
+id varchar(15) primary key,
+name varchar(35),
+department varchar(50),
+email varchar(50),
+password varchar(50));
+
+create table student(
+USN varchar(15) primary key,
+name varchar(50),
+address varchar(50),
+phone varchar(10),
+gender varchar(7),
+dob date,
+department varchar(50),
+email varchar(50),
+password varchar(50));
+
+);
+create table stusem(
+USN varchar(15) primary key,
+subject varchar(50),
+marks float,
+foreign key(USN) references student(USN) ON delete set NULL,
+foreign key(subject) references stusub(subject) ON delete set NULL
+);
+
+
+/*
+create table stusub(
+subject varchar(50),
+USN references student(USN) ON Delete set NULL
+);*/
+
+create table stusub(
+USN varchar(15) primary key,
+subject varchar(50),
+credits float,
+foreign key(USN) references student(USN) ON delete set NULL
+);
+
+insert into stusub(usn,subject,credits) values('1si18is062','OS','4'); where USN='1si18is062';
+insert into student values('1','1','1','1','1','2000-1-1','1','1','1');
+insert into stusub values('1','1','1');
+select * from stusub;
