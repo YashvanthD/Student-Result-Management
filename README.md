@@ -6,7 +6,7 @@ Simple student result management
 
 Step 1 : 
       install php running softwares
-      example - Wamp, samp ect..
+      example - WAMP, ZAMP,loaclhost,phpadmin ect..
      
 Step 2 :
       Extract the zip file to Root directory of your php software
