@@ -45,7 +45,7 @@ if(!$Nrows)
 //if(!$Nrows==1)
 else
 {
-$table='<center><table><tr><th> Name </th><th> USN </th><th>sem</th></tr>';
+$table='<center><table><tr><th> Name </th><th> USN </th><th>Department</th></tr>';
 
 
   $row=mysqli_fetch_assoc($result);

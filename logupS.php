@@ -91,7 +91,7 @@ mysqli_close($conn);
 
 ?>
 <h1>
-<a href="./indexS.html">back</a>
+<button><a href="./indexS.php">back</a></button>
 <br>
-<a href="./createS.html">Cback</a>
+<button><a href="./createS.php">Cback</a></button>
 </h1>	

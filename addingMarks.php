@@ -32,7 +32,7 @@ include 'connecting.php';
 <hr>
 </div>
 
-<button  onclick="window.location.href='./indexL.html'"style="float: right;" >Logout</button> </div>
+<button  onclick="window.location.href='./indexL.php'"style="float: right;" >Logout</button> </div>
 
                    <div>
 

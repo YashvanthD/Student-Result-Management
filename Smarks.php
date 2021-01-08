@@ -14,11 +14,18 @@
  <?php 
 
 include 'connecting.php';
-$sql = "select * from marktable where USN='$USN' GROUP BY sem,sub;";  
+$sql = "select * from marktable where USN='$USN';";  
 $result = mysqli_query($conn, $sql);
-echo 'Total Sub enrolled is :'.mysqli_num_rows($result);
-$Nrows=mysqli_num_rows($result);
 $error=mysqli_error($conn);
+if ($error) {
+  echo 'No table';
+  $conn.die();
+  # code...
+}
+echo 'Total Sub enrolled is :'.mysqli_num_rows($result);
+
+$Nrows=mysqli_num_rows($result);
+
 if($Nrows)
 {
 	$i=0;
@@ -30,7 +37,15 @@ if($Nrows)
     $table.='<tr><td>'.$row['sem'].'</td>';
     $table.='<td>'.$row['sub'].'</td>';
     $table.='<td>'.$row['marks'].'</td>';
-    $table.='<td>'.$row['grade'].'</td></tr>';
+    
+    if($row['marks']>40 )
+    {
+    $table.='<td ><label>'.$row['grade'].'</label></td></tr>';
+    }
+    else{
+    $table.='<td><label style="color:red;text-decoration-color:red;">'.$row['grade'].'</label></td></tr>';
+    }
+    
     $i=$i+1;  
 	}
 
@@ -40,11 +55,11 @@ if($Nrows)
 }
 else
 {
-	echo "Marks Still Not Updated".$error;
+	echo "<br>Marks Still Not Updated".$error;
 }
 
  ?>
-  
+
   
   </body>
 

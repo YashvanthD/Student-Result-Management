@@ -54,7 +54,7 @@ $USN=$_SESSION['USN'];
                 class="button" value="Subjects" /> 
 
 
-        <button  style="float: right;" ><a href="indexS.html">Logout</a></button>
+        <button  style="float: right;" ><a href="indexS.php">Logout</a></button>
     </form> </div>
  <?php
    

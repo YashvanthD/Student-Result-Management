@@ -37,7 +37,7 @@ if(!$Nrows==1)
  echo '<h1 align="center"> Student Does not exist in Database</h1>
          <button ><a href="indexS.html">Bcak</a></button>';
          echo '&nbsp';
-                    echo '<button><a href="./createS.html">create</a></button>';
+                    echo '<button><a href="./createS.php">create</a></button>';
                     ;
                   
 

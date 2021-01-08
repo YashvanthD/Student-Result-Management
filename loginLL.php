@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-    if(!isset($_SESSSION['user']))
-{
-  echo '<h1 style="color:red">ERORR 404</h1><button  onclick="window.location.href=\'indexL.php\'" style="float: right;" >HOME</button>';
-  die();
-}
+
 
 $user=$_SESSION['user'];
 $dep=$_SESSION['dep'];
@@ -61,7 +57,7 @@ $USN=$_SESSION['id'];
     	</form>
 
     </form>
-    <button  onclick="window.location.href='indexL.html'"style="float: right;" ><a style="color: white;background: black;"href="indexL.html">Logout</a></button> </div>
+    <button  onclick="window.location.href='indexL.php'"style="float: right;" ><a style="color: white;background: black;"href="indexL.php">Logout</a></button> </div>
 
 
  

@@ -86,41 +86,65 @@ if($Nrows)
             if($Nrowsin)
             {
             $rowin=mysqli_fetch_assoc($result1);
+            $fmarks=$rowin['marks'];
+            $fsem=$rowin['sem'];
+            $fname=$rowin['name'];
+
+           // mysqli_close($conn);
             //echo $rowin['marks'];
-              if($rowin['marks']>40)
+              include_once 'connecting.php';
+              if($fmarks>40)
                 {
                  echo '<h2 style="color:red">already Registered</h2>';
                 $conn.die();
                 }
-          
-              else if($rowin['marks']<40 && $rowin['sem']!=$sem)
+              
+              else if($fmarks<40 && $fsem!=$sem)
                 {
-                  echo $sem,$rowin['sem'];
-                    $sql2 = "update marktable
-                            set sem='$sem',marks=NULL,grade=NULL
-                            where USN='addUSN' and sub='$addsub';";  
+                  //echo $sem,$rowin['sem'];
+                    $sql = "delete from marktable where USN='$addUSN' and sub='$addsub';";  
 
-                    $result2 = mysqli_query($conn, $sql2);
+                    $result = mysqli_query($conn, $sql);
                     $error=mysqli_error($conn);
 
                     //echo mysqli_num_rows($result);
                     //$Nrows=mysqli_num_rows($result);
                     if($error)
                     { 
-                      echo '<hr><h1 style="color : red ">'.$error.'</h1>';
+                      echo '<hr><h1 style="color : red ">Delete mark error'.$error.'</h1>';
                       $conn.die();
                     }
-                    $sql3 = "update semsub
-                            set sem='$sem'
-                            where USN='addUSN' and sub='$addsub';";
-                    $result3 = mysqli_query($conn, $sql3);
+                    $sql = "select * from marktable where USN='addUSN' and sub='$addsub';";  
+
+                    $result = mysqli_query($conn, $sql);
+                    $error=mysqli_error($conn);
+                    $Nrowcheck=mysqli_fetch_assoc($result);
+                    if ($Nrowcheck) {
+                       echo '<hr><h1 style="color : red ">Delete mark error'.$error.'</h1>';
+                      $conn.die(); # code...
+                    }
+                                        
+                    $sql = "delete from semsub where USN='$addUSN' and sub='$addsub';";
+                    $result = mysqli_query($conn, $sql);
                     $error=mysqli_error($conn);
 
                     //echo mysqli_num_rows($result);
                     //$Nrows=mysqli_num_rows($result);
                     if($error)
                     { 
-                      echo '<hr><h1 style="color : red ">'.$error.'</h1>';
+                      echo '<hr><h1 style="color : red ">Delete subsem error'.$error.'</h1>';
+                      mysqli_close($conn);
+                      $conn.die();
+                    }
+                    $sql = "insert into semsub values('$addUSN','$sem','$addsub');";
+                    $result = mysqli_query($conn, $sql);
+                    $error=mysqli_error($conn);
+
+                    //echo mysqli_num_rows($result);
+                    //$Nrows=mysqli_num_rows($result);
+                    if($error)
+                    { 
+                      echo '<hr><h1 style="color : red ">Insert subsem error'.$error.'</h1>';
                       mysqli_close($conn);
                       $conn.die();
                     }

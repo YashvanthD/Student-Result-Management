@@ -18,9 +18,9 @@ if(!$Nrows==1)
 {
 echo '<h1>Data Not Found</h1>';
 										//header('location:./CandidateNotFound.html');
-										echo '<button><a href="./createL.html">create</a></button>';
+										echo '<button><a href="./createL.php">create</a></button>';
 										echo '&nbsp';
-										echo '<button><a href="./indexL.html">Back</a></button>';
+										echo '<button><a href="./indexL.php">Back</a></button>';
 										$conn.die();
 }
 else

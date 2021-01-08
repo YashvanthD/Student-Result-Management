@@ -92,7 +92,7 @@ if($Nrows)
         echo '<hr><h1 style="color : red">Student marks  already Updated '.$Smarks.' <h2 style="color : black"></h2><hr>
           <button  onclick="window.location.href=\'loginLL.php\'"style="float: right;" >Home</button>
 <button  onclick="window.location.href=\'addmarks.php\'"style="float: right;" >Back</button>
-<button  onclick="window.location.href=\'indexL.html\'"style="float: right;" >Logout</button> &nbsp</div><h3>'.$error.'<h3></h1>';
+<button  onclick="window.location.href=\'indexL.php\'"style="float: right;" >Logout</button> &nbsp</div><h3>'.$error.'<h3></h1>';
         $conn.die();        # code...
         }
 }
@@ -150,7 +150,7 @@ mysqli_close($conn);
 ?>
   <button  onclick="window.location.href='loginLL.php'"style="float: right;" >Home</button>
 <button  onclick="window.location.href='addmarks.php'"style="float: right;" >Back</button>
-<button  onclick="window.location.href='indexL.html'"style="float: right;" >Logout</button> &nbsp</div>
+<button  onclick="window.location.href='indexL.php'"style="float: right;" >Logout</button> &nbsp</div>
 
 
 

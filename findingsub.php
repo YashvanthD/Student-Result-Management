@@ -2,8 +2,8 @@
 session_start();
 $user=$_SESSION['user'];
 $dep=$_SESSION['dep'];
-$USN=$_SESSION['id'];
-
+$id=$_SESSION['id'];
+include 'connecting.php';
  ?>
 
 
@@ -19,6 +19,8 @@ $USN=$_SESSION['id'];
 
 
 
+</div>
+
 	<div>
 <h1>
   <?php 
@@ -26,75 +28,80 @@ $USN=$_SESSION['id'];
         <h3><p style="text-align: left; "float :left>',
 			 $user ,
 			 '<span style="float :right">'
-			 ,$USN,'</span></p></h3>
-		</div>';
+			 ,$id,'</span></p></h3>
+		</div><br>
+    <hr>';
 
-
-
-
-
-
-
-	 ?>
-<hr>
-</div>
-
-<button  onclick="window.location.href='./loginLL.php'"style="float: right;" >Home</button>
-<button  onclick="window.location.href='./indexL.php'"style="float: right;" >Logout</button> &nbsp</div>
-
-                   <div>
- 	<hr>
- 
-        	 <form method="POST" action="findingsub.php" >
-                <label>USN</label>   
-            	 <input type="text" name="addUSN" required> <br>
-               <label>Sem</label>   
-               <input type="number" name="sem" pattern="^[0-9]" title="Only Number" min="0" step="1" max="8"required> <br>
-               <input type="submit" name="btn1" value="next">
-           </form>
-   
-</div>
- <?php
-      /*  if(array_key_exists('submitmarks', $_POST)) { 
-
-            button1(); 
-        } 
-        else if(array_key_exists('addUSN', $_POST)) { 
-
-            $addUSN=$_POST['addUSN'];
-            //echo $addUSN; 
-        } 
-        else if(array_key_exists('btn1', $_POST)) { 
-                    $addUSN=$_POST['addUSN'];
-          $_SESSION['addUSN']=$addUSN;
-                    $sem=$_POST['sem'];
-          $_SESSION['sem']=$sem;
-         include 'findingsub.php';
-            }
-            //echo $addUSN; 
-
-
-   
-        function button1() { 
-             echo '<br><hr>'; 
-			    $addUSN=$_POST['addUSN'];
-        	$_SESSION['addUSN']=$addUSN;
+          $USN=$_POST['addUSN'];
+          $_SESSION['addUSN']=$USN;
        
-        	$sem=$_POST['sem'];
+          $sem=$_POST['sem'];
           $_SESSION['sem']=$sem;
 
-   $addsub=$_POST['addsub'];
+
+          /*$addsub=$_POST['addsub'];
 
           $addsubmarks=$_POST['addsubmarks'];
           $_SESSION['addsubmarks']=$addsubmarks;
           $_SESSION['addsub']=$addsub;
+*/
+
+?>
+
+<button  onclick="window.location.href='./loginLL.php'"style="float: right;" >Home</button>
+<button  onclick="window.location.href='./addmarks.php'"style="float: right;" >Back</button>
+<button  onclick="window.location.href='./indexL.php'"style="float: right;" >Logout</button> &nbsp</div>
+
+                   <div>
+<?php
+ echo '<h3>USN : '.$USN.' Sem : '.$sem.'<h3><br>';
+$sql = "select * from semsub where USN='$USN' and sem='$sem' ;";  
+$result = mysqli_query($conn, $sql);
+$error=mysqli_error($conn);
+if ($error) {
+  echo "sorry subjects not loading".$error;
+  # code...
+}
+$Nrows=mysqli_num_rows($result);
+
+if($Nrows)
+{
+//echo $Nrows;
+  $i=0;
+  $table='
+        <form method="POST" action="adding.php">
+        <label style="font-size:20px;">Subject </label> 
+        <select id="addsub" name="addsub" required>       
+        ';
+
+  while ($i!=$Nrows) 
+  {
+  $row=mysqli_fetch_assoc($result);
+    $table.='<option value="'.$row['sub'].'">'.$row['sub'].'</option>';
+     $i=$i+1;  
+  }
 
 
-             include('adding.php');
-     
-        } */
+  $table.='</select>  <br />
+       <label style="font-size:20px;">Marks </label>
+        <input type="number" pattern="^[0-9]" title="Only Number" min="0" step="1" max="100"name="addsubmarks" required>
+        <input type="submit" name="submitmarks">
+       </form>';
+  echo $table;
+}
+else
+{
+  echo "Registration Subjects Not Updated".$error;
+}
 
-        ?>
+
+	 ?>
+<hr>
+ 	<hr>
+
+   
+</div>
+
 
 
 </h1>

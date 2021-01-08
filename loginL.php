@@ -56,9 +56,9 @@
 									{
 										echo '<h1>',$USN,"\t User Not Found",'</h1>';
 										//echo("Error description: " . $mysqli -> error);
-										echo '<button><a href="./createL.html">create</a></button>';
+										echo '<button><a href="./createL.php">create</a></button>';
 										echo '&nbsp';
-										echo '<button><a href="./indexL.html">Back</a></button>';
+										echo '<button><a href="./indexL.php">Back</a></button>';
 										$conn.die();
 									}
 									else{
@@ -69,9 +69,9 @@
 											if($pass!=$passget)
 											{
 											$conn.die('<center><h1 style="color:red">Invalid Password</h1></center>');
-											echo '<button><a href="./createL.html">create</a></button>';
+											echo '<button><a href="./createL.php">create</a></button>';
 											echo '&nbsp';
-											echo '<button><a href="./indexL.html">Back</a></button>';
+											echo '<button><a href="./indexL.php">Back</a></button>';
 											}
 										$user=$result['name'];
 										$_SESSION['user']=$user;

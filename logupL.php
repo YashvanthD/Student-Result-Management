@@ -87,7 +87,7 @@ mysqli_close($conn);
 <body>
 	<h1>Welcome to <?php echo $user ?></h1>
 
-	 <button  onclick="window.location.href='./indexL.html'" >Back</button>
+	 <button  onclick="window.location.href='./indexL.php'" >Back</button>
 
 
 
