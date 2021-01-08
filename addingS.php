@@ -1,3 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+   <link rel="stylesheet" type="text/css" href="./Lcss.css">
+<link rel="stylesheet" type="text/css" href="./../css/Lcss.css">
+
+</head>
+
+<body>
+  <hr>
+  <hr>
+  <center> 
+  
+</center>
+
+</body>
+</html>
 <?php
 
 
@@ -20,14 +40,130 @@ sub varchar(50));";
 $result = mysqli_query($conn, $sql);
 $error=mysqli_error($conn);
 
+//echo 'cam ';
 //echo mysqli_num_rows($result);
 
 if($error)
 {
-  echo $error;
+  echo $error,'Cannot connect';
 }
 
 
+  $sql = "select *
+          from semsub 
+          where (USN='$addUSN') ;";  
+  $result = mysqli_query($conn, $sql);
+
+  $error=mysqli_error($conn);
+  if ($error) {
+    echo '<h2 style="color:red">'.$error.'</h2>';
+    }
+$flag=0;
+$Nrows=mysqli_num_rows($result);
+
+if($Nrows)
+{
+  $i=0;
+    while ($i!=$Nrows) 
+  {
+     $row=mysqli_fetch_assoc($result);
+     
+      if($row['sub']==$addsub)
+       {
+          $flag=1;
+           $sql = "select *
+          from marktable 
+          where USN='$addUSN' and sub='$addsub' ;";  
+          $result1 = mysqli_query($conn, $sql);
+
+          $error=mysqli_error($conn);
+          if ($error) {
+            echo '<h2 style="color:red">'.$error.'</h2>';
+            }
+
+            $Nrowsin=mysqli_num_rows($result1);
+           // echo $Nrowsin;
+            if($Nrowsin)
+            {
+            $rowin=mysqli_fetch_assoc($result1);
+            //echo $rowin['marks'];
+              if($rowin['marks']>40)
+                {
+                 echo '<h2 style="color:red">already Registered</h2>';
+                $conn.die();
+                }
+          
+              else if($rowin['marks']<40 && $rowin['sem']!=$sem)
+                {
+                  echo $sem,$rowin['sem'];
+                    $sql2 = "update marktable
+                            set sem='$sem',marks=NULL,grade=NULL
+                            where USN='addUSN' and sub='$addsub';";  
+
+                    $result2 = mysqli_query($conn, $sql2);
+                    $error=mysqli_error($conn);
+
+                    //echo mysqli_num_rows($result);
+                    //$Nrows=mysqli_num_rows($result);
+                    if($error)
+                    { 
+                      echo '<hr><h1 style="color : red ">'.$error.'</h1>';
+                      $conn.die();
+                    }
+                    $sql3 = "update semsub
+                            set sem='$sem'
+                            where USN='addUSN' and sub='$addsub';";
+                    $result3 = mysqli_query($conn, $sql3);
+                    $error=mysqli_error($conn);
+
+                    //echo mysqli_num_rows($result);
+                    //$Nrows=mysqli_num_rows($result);
+                    if($error)
+                    { 
+                      echo '<hr><h1 style="color : red ">'.$error.'</h1>';
+                      mysqli_close($conn);
+                      $conn.die();
+                    }
+                    else
+                    {
+                      echo '<center><h3 style="color:green"> '.$addsub.' Reregistered Successfully to '.$addUSN.' </h3></center>';
+                      mysqli_close($conn);
+                             $conn.die();
+                    }
+            }
+              }
+
+        }
+       $i=$i+1;  
+    }
+}
+else
+{
+  echo "Marks Still Not Updated".$error;
+}
+
+
+
+
+/*
+  $sql = "select * from marktable where sub='$addsub' and USN='$addUSN';";  
+  $result = mysqli_query($conn, $sql); 
+  echo $addUSN;
+  $error=mysqli_error($conn);
+  if ($error) {
+    echo $error,'Cannot connect';    $conn.die();
+    # code...
+  }
+  $Nrows=mysqli_num_rows($result);
+  if($Nrows )
+  {
+    $row=mysqli_fetch_assoc($result);
+    if(40>$row['marks']){
+       echo '<hr><h1 style="color : red">Subject is already Registered <h2 style="color : black"></h2><hr><h3>'.$error.'<h3></h1>';
+    $conn.die();
+    }
+  }*/
+if($flag==0){
 $sql = "insert into semsub(USN,sem,sub) values('$addUSN','$sem','$addsub');";  
 $result = mysqli_query($conn, $sql);
 $error=mysqli_error($conn);
@@ -35,39 +171,26 @@ $error=mysqli_error($conn);
 //echo mysqli_num_rows($result);
 //$Nrows=mysqli_num_rows($result);
 if($error)
-{
- 
+{ 
   echo '<hr><h1 style="color : red">Student Not found <h2 style="color : black">enter  correct USN</h2><hr><h3>'.$error.'<h3></h1>';
   $conn.die();
 }
 else{
-	echo '<center><h3 style="color:green">'.$addsub.' Subject Addedd Successfully to'.$addUSN.' </h3></center>';
+  echo '<center><h3 style="color:green">'.$addsub.' Subject Addedd Successfully to '.$addUSN.' </h3></center>';
 }
 
+
+}
+else
+{
+   echo '<h2 style="color:red">already Registered</h2>';
+
+}
 
 
 mysqli_close($conn);
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-
-	 <link rel="stylesheet" type="text/css" href="./Lcss.css">
-<link rel="stylesheet" type="text/css" href="./../css/Lcss.css">
-
-</head>
-
-<body>
-  <hr>
-  <hr>
-  <center> 
-  
-</center>
-
-</body>
-</html>
 
 
 <style type="text/css">

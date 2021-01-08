@@ -1,11 +1,30 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+   <link rel="stylesheet" type="text/css" href="./Lcss.css">
+<link rel="stylesheet" type="text/css" href="./../css/Lcss.css">
+
+</head>
+
+<body>
+
+</body>
+</html>
+
 <?php
 
 include 'connecting.php';
-
-        	$addUSN=$_SESSION['addUSN'];
-        	$addsubmarks=$_SESSION['addsubmarks'];
-        	$addsub=$_SESSION['addsub'];
+session_start();
+          $addsubmarks=$_POST['addsubmarks'];
+          $addsub=$_POST['addsub'];
           $sem=$_SESSION['sem'];
+          $addUSN= $_SESSION['addUSN'];
+
+        
 //$_session['Password']=$_POST['Password'];
 /*
 include_once 'test1.php';
@@ -27,13 +46,15 @@ if(!$Nrows)
 {
  
 
-  echo '<hr><h1 style="color : red">Student Not found <h2 style="color : black">enter  correct USN</h2><hr><h3>'.$error.'<h3></h1>';
+  echo '<hr><h1 style="color : red">Student Not found <h2 style="color : black">enter  correct USN</h2><hr><h3>'.$error.'<h3></h1>
+';
   
 }
-else{
 
       $row=mysqli_fetch_assoc($result);
       $Sname=$row['NAME'];
+
+      
       $sql = 'create table IF NOT EXISTS marktable(
       USN varchar(50),
       name varchar(50),
@@ -47,8 +68,34 @@ else{
       if($error)
         {
         echo "table erro";
+        $conn.die();
         }
-    else{
+
+$sql = "select * from marktable where USN='$addUSN' and sub='$addsub' limit 1";  
+$result = mysqli_query($conn, $sql);
+$error=mysqli_error($conn);
+                if($error)
+                {
+                  echo  $error;
+                  $conn.die();
+                }
+//echo mysqli_num_rows($result);
+$Nrows=mysqli_num_rows($result);
+if($Nrows)
+{
+ 
+      $row=mysqli_fetch_assoc($result);
+      $Smarks=$row['marks'];
+
+      if ($Smarks!=NULL || $Smarks!=0)
+       {
+        echo '<hr><h1 style="color : red">Student marks  already Updated '.$Smarks.' <h2 style="color : black"></h2><hr>
+          <button  onclick="window.location.href=\'loginLL.php\'"style="float: right;" >Home</button>
+<button  onclick="window.location.href=\'addmarks.php\'"style="float: right;" >Back</button>
+<button  onclick="window.location.href=\'indexL.html\'"style="float: right;" >Logout</button> &nbsp</div><h3>'.$error.'<h3></h1>';
+        $conn.die();        # code...
+        }
+}
 
       $marks=$addsubmarks;
 
@@ -98,47 +145,16 @@ else{
         }
 
 
-    }
-  }
-
-
-
-
-
-
-
-
 mysqli_close($conn);
 
-
-
-
-
-
-
-
 ?>
+  <button  onclick="window.location.href='loginLL.php'"style="float: right;" >Home</button>
+<button  onclick="window.location.href='addmarks.php'"style="float: right;" >Back</button>
+<button  onclick="window.location.href='indexL.html'"style="float: right;" >Logout</button> &nbsp</div>
 
 
 
 
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-
-	 <link rel="stylesheet" type="text/css" href="./Lcss.css">
-<link rel="stylesheet" type="text/css" href="./../css/Lcss.css">
-
-</head>
-
-<body>
-
-</body>
-</html>
 
 
 	

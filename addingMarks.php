@@ -42,9 +42,6 @@ include 'connecting.php';
         	$addsub=$_POST['addsub'];
         	$addsubmarks=$_POST['addsubmarks'];
 
-
-
-
  ?>
 
 </div>
