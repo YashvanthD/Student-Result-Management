@@ -17,7 +17,8 @@ input[type=submit],button{
   cursor: pointer;
 }
 
-a{
+a 
+{
     font-size: 15px;
     resize: 15px;
     
@@ -54,5 +55,5 @@ select[id="sem"]{
   padding: 16px;
   margin: 5px 0 22px 0;
   display: inline-block;
-  border: none;
+  border: none; 
 }
